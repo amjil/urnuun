@@ -2,9 +2,8 @@
 {:source-paths
  ["src"]
 
- :dependencies [[binaryage/devtools "0.9.7"]
-                ;; fork to support react 16
-                [ua.modnakasta/rum "0.11.0-2"]]
+ :dependencies [[binaryage/devtools "1.0.2"]
+                [rum/rum "0.12.3"]]
 
  ;; set an nrepl port for connection to a REPL.
  :nrepl        {:port 8777}
@@ -16,13 +15,13 @@
 
         :modules
         {:main
-         {:entries [urnuun.core]}}
+         {:entries [app.core]}}
 
         :devtools
         ;; before live-reloading any code call this function
-        {:before-load urnuun.core/stop
+        {:before-load app.core/stop
          ;; after live-reloading finishes call this function
-         :after-load urnuun.core/start
+         :after-load app.core/start
          ;; serve the public directory over http at port 8700
          :http-root    "public"
          :http-port    8700

@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   purge: [
     './src/**/*.cljs',
@@ -9,5 +11,18 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      const newUtilities = {
+        '.mode-lr': {
+          'writing-mode': 'vertical-lr'
+        },
+        '.mode-tb': {
+          'writing-mode': 'horizontal-tb'
+        },
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    })
+  ],
 }
