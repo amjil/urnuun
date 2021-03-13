@@ -1,12 +1,16 @@
 (ns app.core
-  (:require [rum.core :as rum]))
+  (:require
+    [rum.core :as rum]
+    [app.components.main :as main]))
 
 (defonce app-state (atom {:text "Hello world!"}))
 
 (rum/defc hello-world []
   [:div
    [:h1 (:text @app-state)]
-   [:h3 "Edit this and watch it change!"]])
+   [:h3 "Edit this and watch it change"]
+   ; (main/timer)
+   ])
 
 (defn start []
   ;; start is called by init and after code reloading finishes
