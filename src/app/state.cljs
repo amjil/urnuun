@@ -4,7 +4,8 @@
 
 (defonce ^:private state
   (atom
-   {:ime/candidate []}))
+   {:ime/candidate []
+    :ime/candidate-page 0}))
 
 (defn sub
   [ks]

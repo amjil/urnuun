@@ -5,7 +5,7 @@
    [cljs-bean.core :refer [bean ->clj ->js]]
    [app.state :as state]))
 
-(defonce base-url "http://localhost:3000/api")
+(defonce base-url "http://localhost:3002/api")
 
 (defonce xvlvn-url (str base-url "/candidate"))
 
@@ -35,6 +35,6 @@
   (candidate ["ab"] js/console.log)
   util/fetch
   (util/fetch (str xvlvn-url "?input=abej") js/console.log js/console.log)
-  (candidate ["ab"] #(state/set-state! :ime/candidate %)))
+  (candidate ["b"] #(state/set-state! :ime/candidate %)))
   
 
