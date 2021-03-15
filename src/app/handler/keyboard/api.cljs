@@ -35,6 +35,6 @@
   (candidate ["ab"] js/console.log)
   util/fetch
   (util/fetch (str xvlvn-url "?input=abej") js/console.log js/console.log)
-  (candidate ["b"] #(state/set-state! :ime/candidate %)))
+  (candidate ["a"] #(state/set-state! :ime/candidate %)))
   
 
