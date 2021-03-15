@@ -70,3 +70,10 @@
          (.timeEnd js/console k#)
          res#))
      (do ~@body)))
+
+(defn react
+  "Works in conjunction with [[reactive]] mixin. Use this function instead of `deref` inside render, and your component will subscribe to changes happening to the derefed atom."
+  [ref]
+  (when rum.core/*reactions*
+    (vswap! rum.core/*reactions* conj ref))
+  (and ref @ref))

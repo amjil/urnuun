@@ -20,6 +20,10 @@ module.exports = {
         '.mode-tb': {
           'writing-mode': 'horizontal-tb'
         },
+        '.mgl': {
+          'font-family': 'Mongolian White',
+          'text-orientation': 'sideways-right'
+        }, 
       }
 
       addUtilities(newUtilities, ['responsive', 'hover'])

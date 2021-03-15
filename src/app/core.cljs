@@ -2,22 +2,29 @@
   (:require
    [rum.core :as rum]
    [app.components.main :as main]
-   [app.components.keyboard.candidate :as candidate]))
+   [app.components.keyboard.candidate :as candidate]
+   [app.handler.keyboard.event :as key-event]))
 
 (defonce app-state (atom {:text "Hello world!"}))
 
-(rum/defc hello-world []
+(rum/defcs page
+  <
+  rum/reactive
+  {:did-mount (fn [state]
+                (key-event/bind-keyboard!)
+                state)}
+           
+  []
   [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
    [:h1 (:text @app-state)]
    [:h3 "Edit this and watch it change"]
    ; (main/timer)
-   (candidate/view)
-   ])
+   (candidate/view)])
 
 (defn start []
   ;; start is called by init and after code reloading finishes
   ;; this is controlled by the :after-load in the config
-  (rum/mount (hello-world)
+  (rum/mount (page)
              (. js/document (getElementById "app"))))
 
 (defn ^:export init []

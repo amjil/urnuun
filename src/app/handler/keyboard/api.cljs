@@ -1,4 +1,4 @@
-(ns app.keyboard.api
+(ns app.handler.keyboard.api
   (:require 
    [app.util :as util]
    [clojure.string :as str]
@@ -35,6 +35,7 @@
   (candidate ["ab"] js/console.log)
   util/fetch
   (util/fetch (str xvlvn-url "?input=abej") js/console.log js/console.log)
-  (candidate ["a"] #(state/set-state! :ime/candidate %)))
+  (candidate ["nmr"] #(state/set-state! :ime/candidate %))
+  (state/set-state! :ime/input "ab"))
   
 
