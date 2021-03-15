@@ -1,15 +1,17 @@
 (ns app.core
   (:require
-    [rum.core :as rum]
-    [app.components.main :as main]))
+   [rum.core :as rum]
+   [app.components.main :as main]
+   [app.components.keyboard.candidate :as candidate]))
 
 (defonce app-state (atom {:text "Hello world!"}))
 
 (rum/defc hello-world []
   [:div
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this and watch it change"]
+  ;;  [:h1 (:text @app-state)]
+  ;;  [:h3 "Edit this and watch it change"]
    ; (main/timer)
+   (candidate/view)
    ])
 
 (defn start []

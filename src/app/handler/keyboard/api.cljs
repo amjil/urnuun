@@ -1,7 +1,9 @@
 (ns app.keyboard.api
   (:require 
    [app.util :as util]
-   [clojure.string :as str]))
+   [clojure.string :as str]
+   [cljs-bean.core :refer [bean ->clj ->js]]
+   [app.state :as state]))
 
 (defonce base-url "http://localhost:3000/api")
 
@@ -9,13 +11,13 @@
 
 (defonce xvlvn-update (str base-url "/update-order"))
 
-(defonce url-next-words (str base-url "http://localhost:3000/api/next-words"))
+(defonce url-next-words (str base-url "/next-words"))
 
 (defn candidate [cands res-func]
   (js/console.log "candidate string " (clj->js cands))
   (let [input (str/join "," cands)
         url (str xvlvn-url "?input=" input)]
-    (util/fetch url #(res-func (sort-by :active_order > (into #{} %))) #(js/alert "api error!"))))
+    (util/fetch url #(-> (sort-by :active_order > (into #{} %)) res-func) #(js/alert "api error!"))))
 
 ;; (defn update-order [id candstr]
 ;;   (go (let [response (<! (http/get xvlvn-update {:query-params {:input candstr :id id} :with-credentials? false}))]
@@ -23,15 +25,16 @@
 ;;         (js/console.log (clj->js (:body response))))))
 
 ;; (defn next-words [candstr id res-func]
-;;   (go (let [response (<! (http/get url-next-words {:query-params {:input candstr :id id} :with-credentials? false}))]
+;;   (let [response (<! (http/get url-next-words {:query-params {:input candstr :id id} :with-credentials? false}))]
 ;;         (js/console.log "next words status " (:status response))
 ;;         (js/console.log (clj->js (map #(:char_word %) (:body response))))
-;;         (res-func (sort-by :id > (into #{} (:body response)))))))
+;;         (res-func (sort-by :id > (into #{} (:body response))))))
 
-(comment 
+(comment
   (js/console.log "hello")
   (candidate ["ab"] js/console.log)
   util/fetch
-  (util/fetch (str xvlvn-url "?input=abej") js/console.log js/console.log))
+  (util/fetch (str xvlvn-url "?input=abej") js/console.log js/console.log)
+  (candidate ["ab"] #(state/set-state! :ime/candidate %)))
   
 
