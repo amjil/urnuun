@@ -18,11 +18,34 @@
       (api/candidate input-new #(state/set-state! :ime/candidate %)))))
 
 (defn on-delete []
-  (when-not (empty? (state/sub :ime/input))
-    (let [input-str (state/sub :ime/input)]
-      (state/update-state! :ime/input #(subs % 0 (dec (count input-str))))
-      (if (< 1 (count input-str))
-        (api/candidate (subs input-str 0 (dec (count input-str))) #(state/set-state! :ime/candidate %))))))
+  (when (state/sub :ime/active?)
+    (when-not (empty? (state/sub :ime/input))
+      (let [input-str (state/sub :ime/input)]
+        (state/update-state! :ime/input #(subs % 0 (dec (count input-str))))
+        (if (< 1 (count input-str))
+          (api/candidate (subs input-str 0 (dec (count input-str))) #(state/set-state! :ime/candidate %)))))))
+
+(defn on-plus []
+  (when (state/sub :ime/active?)
+    (let [cands (state/sub :ime/candidate)
+          current-page (state/sub :ime/candidate-page)
+          total-record (count cands)
+          total (- (int (/ total-record 9)) (if (zero? (mod total-record 9)) 1 0))]
+      (when (and (> total 0) (> total current-page))
+        (state/set-state! :ime/candidate-page (inc current-page))))))
+
+(defn on-minus []
+  (when (state/sub :ime/active?)
+    (let [cands (state/sub :ime/candidate)
+          current-page (state/sub :ime/candidate-page)
+          total-record (count cands)
+          total (- (int (/ total-record 9)) (if (zero? (mod total-record 9)) 1 0))]
+      (when (> current-page 0)
+        (state/set-state! :ime/candidate-page (dec current-page))))))
+
+(defn on-space []
+  (when (state/sub :ime/active?)
+    nil))
 
 (def keyboard 
   {"a" #(on-key-down "a")
@@ -51,7 +74,9 @@
    "x" #(on-key-down "x")
    "y" #(on-key-down "y")
    "z" #(on-key-down "z")
-   "backspace" #(on-delete)})
+   "backspace" on-delete
+   "=" on-plus
+   "-" on-minus})
 
 (defn bind-keyboard!
   []
@@ -81,5 +106,10 @@
   (state/set-state! :ime/candidate)
   (subs "abc" 0 (dec (count "abc")))
   (bind! "backspace" on-delete)
+  (bind! "=" on-plus)
+  (on-plus)
+  (bind! "plus" on-plus)
+  (bind! "-" on-minus)
+
 )
   
