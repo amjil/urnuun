@@ -13,13 +13,16 @@
   {:did-mount (fn [state]
                 (key-event/bind-keyboard!)
                 state)}
-           
+
   []
-  [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this and watch it change"]
-   ; (main/timer)
-   (candidate/view)])
+  [:div.flex.flex-cel.min-h-screen
+   [:header.mode-lr "navigation bar"]
+   [:div.flex-grow
+    [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
+     [:h1 (:text @app-state)]
+     [:h3 "Edit this and watch it change"]
+     ; (main/timer)
+     (candidate/view)]]])
 
 (defn start []
   ;; start is called by init and after code reloading finishes
