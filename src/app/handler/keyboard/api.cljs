@@ -13,10 +13,9 @@
 
 (defonce url-next-words (str base-url "/next-words"))
 
-(defn candidate [cands res-func]
-  (js/console.log "candidate string " (clj->js cands))
-  (let [input (str/join "," cands)
-        url (str xvlvn-url "?input=" input)]
+(defn candidate [cand res-func]
+  (js/console.log "candidate string " (clj->js cand))
+  (let [url (str xvlvn-url "?input=" cand)]
     (util/fetch url #(-> (sort-by :active_order > (into #{} %)) res-func) #(js/alert "api error!"))))
 
 ;; (defn update-order [id candstr]

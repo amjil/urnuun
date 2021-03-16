@@ -10,10 +10,12 @@
 
 (defn on-key-down [k]
   (when (state/sub :ime/active?)
-    (let [input-str (state/sub :ime/input)]
+    (let [input-str (state/sub :ime/input)
+          input-new (str input-str k)]
       (js/console.log "key pressed " k)
-      (state/update-state! :ime/input #(str % k))
-      (api/candidate (str input-str k) #(state/set-state! :ime/candidate %)))))
+      (js/console.log "input-str = " input-new)
+      (state/set-state! :ime/input input-new)
+      (api/candidate input-new #(state/set-state! :ime/candidate %)))))
 
 (defn on-delete []
   (when-not (empty? (state/sub :ime/input))
@@ -49,7 +51,7 @@
    "x" #(on-key-down "x")
    "y" #(on-key-down "y")
    "z" #(on-key-down "z")
-   "del" #(on-delete)})
+   "backspace" #(on-delete)})
 
 (defn bind-keyboard!
   []

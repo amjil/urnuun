@@ -11,11 +11,11 @@
         input-str (state/sub :ime/input)]
     (if-not (empty? input-str)
       [:div.z-10.overflow-x-auto.border-purple-100.border.bg-gray-50.rounded-xl.shadow-xl.absolute.justify-between.flex.flex-col.divide-y
-       [:p.pl-3 input-str]
+       [:p.pl-3.text-gray-500.text-xs input-str]
        [:div.w-full.pb-4.pt-4.px-2.py-2.flex.flex-col.justify-between.mode-lr
         [:ol.list-decimal.text-gray-500.leading-5.mgl
          (for [x (take 9 (drop (* 9 cand-page) cands))]
            [:li {:ref (:id x)} (:char_word x)])]
         [:div.flex.flex-cel.justify-between
-         [:p {:class (if (= 0 cand-page) "text-gray-200" "")} "<"]
-         [:p {:class (if (> total cand-page) "" "text-gray-200")} ">"]]]])))
+         [:p {:ref "cand-prev-page" :class (if (= 0 cand-page) "text-gray-200" "")} "<"]
+         [:p {:ref "cand-next-page" :class (if (> total cand-page) "" "text-gray-200")} ">"]]]])))
