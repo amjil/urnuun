@@ -3,6 +3,7 @@
    [rum.core :as rum]
    [app.components.main :as main]
    [app.components.keyboard.candidate :as candidate]
+   [app.components.editor :as editor]
    [app.handler.keyboard.event :as key-event]))
 
 (defonce app-state (atom {:text "Hello world!"}))
@@ -25,8 +26,13 @@
        [:span.text-sm.text-gray-500 "ᠶᠠᠭᠤ ᠪᠣᠢ ᠶᠠᠭᠤ"]]]]]
    [:div.flex-grow.md:pl-16
     [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
-     [:h1 (:text @app-state)]
-     [:h3 "Edit this and watch it change"]
+     [:div.p-4.container.my-auto.h-full.w-full.mode-lr
+      [:h1 (:text @app-state)]
+      [:h3 "Edit this and watch it change"]
+      ;; (editor/editor "quill-id" "content" nil)
+      ]
+     
+
      ; (main/timer)
      (candidate/view)]]])
 
