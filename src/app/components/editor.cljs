@@ -8,8 +8,8 @@
    ["/app/caret_pos" :as caret-pos]))
 
 (defn set-position [position]
-  (state/set-state! :ime/candidate-left (str (+ (.-left position) 20) "px"))
-  (state/set-state! :ime/candidate-top (str (.-top position) "px")))
+  (state/set-state! :ime/candidate-left (+ (.-left position) (* 16 1.2)))
+  (state/set-state! :ime/candidate-top (.-top position)))
 
 (rum/defc editor <
   {:did-mount (fn [state]
@@ -52,7 +52,11 @@
   (gobj/get caret-pos "position")
   (def edit (js/document.querySelector ".ql-editor"))
   edit
+  (js/console.log (.getBoundingClientRect edit))
   ((gobj/get caret-pos "getOffset") edit)
   ((gobj/get caret-pos "position") edit)
   ((gobj/get caret-pos "offset") edit)
+
+  (.-height js/window.screen)
+  (.-width js/window.screen)
   )

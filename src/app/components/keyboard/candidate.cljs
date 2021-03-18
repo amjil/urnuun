@@ -3,6 +3,21 @@
    [rum.core :as rum]
    [app.state :as state]))
 
+(defn- set-position [left top node]
+  (let [bounds (.getBoundingClientRect node)
+        width (.-width bounds)
+        height (.-height bounds)
+        screen-width (.-width js/window.screen)
+        screen-height (.-height js/window.screen)
+        padding (* 16 1.2)]
+    (merge
+     (if (> left (- screen-width width))
+       {:right (- left padding)}
+       {:left (+ left padding)})
+     (if (> top (- screen-height height))
+       {:bottom top}
+       {:top top}))))
+
 (rum/defc view < rum/reactive []
   (let [cands (state/sub :ime/candidate)
         cand-page (state/sub :ime/candidate-page)
