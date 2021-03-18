@@ -34,7 +34,7 @@
                             (set-position ((gobj/get caret-pos "offset") child-node)))))))}
   
   [state id content on-change-fn]
-  [:div.quill-editor.h-full.min-w-min
+  [:div.quill-editor.h-full.w-full
    {:id id
     :dangerouslySetInnerHTML {:__html content}}])
 
@@ -46,6 +46,9 @@
   (def edit (js/document.querySelector ".ql-editor"))
   edit
   (js/console.log (.getBoundingClientRect edit))
+  (.-contentEditable edit)
+  (.-tagName edit)
+  (.toUpperCase (.-tagName edit))
   ((gobj/get caret-pos "getOffset") edit)
   ((gobj/get caret-pos "position") edit)
   ((gobj/get caret-pos "offset") edit)
@@ -54,6 +57,4 @@
   (.-width js/window.screen)
 
   (require '[goog.style :as gstyle] :reload)
-  gstyle
-
-  )
+  gstyle)

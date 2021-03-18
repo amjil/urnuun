@@ -22,15 +22,19 @@
 
 (rum/defcs view < rum/reactive
   [state]
+  (rum/local nil ::node)
   (let [cands (state/sub :ime/candidate)
         cand-page (state/sub :ime/candidate-page)
         total-record (count cands)
         total (- (int (/ total-record 9)) (if (zero? (mod total-record 9)) 1 0))
         input-str (state/sub :ime/input)
-        node (rum/dom-node state)
+        compo     (:rum/react-component state)
+        node (js/ReactDOM.findDOMNode compo)
+        ;; node (::node state)
         left (state/sub :ime/candidate-left)
         top (state/sub :ime/candidate-top)
         style (if node (set-position left top node) {})]
+    (js/console.log ">>>>>>>> " state)
     (if-not (empty? input-str)
       [:div.z-10.border-purple-100.border.bg-gray-50.rounded-xl.shadow-xl.absolute.justify-between.flex.flex-col.divide-y.top-6.left-48
        {:style style}
