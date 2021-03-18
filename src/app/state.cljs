@@ -8,7 +8,9 @@
    {:ime/active? true
     :ime/candidate []
     :ime/candidate-page 0
-    :ime/input ""}))
+    :ime/input ""
+    :ime/candidate-left "0px"
+    :ime/candidate-top "0px"}))
 
 (defn sub
   [ks]

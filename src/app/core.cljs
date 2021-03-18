@@ -14,7 +14,6 @@
   {:did-mount (fn [state]
                 (key-event/bind-keyboard!)
                 state)}
-
   []
   [:div.flex.flex-cel.min-h-screen
    [:div.mode-lr.top-0.left-0.fixed.h-full.w-16 
@@ -22,14 +21,17 @@
      [:a.hidden.md:flex.items-center.w-full.mb-auto
       [:img.w-14.transform.rotate-90 {:src "/img/logo.svg"}]
       [:div.text-base.font-thin.mt-4
-       [:span.text-xl.text-purple-700 "ᠶᠠᠭᠤ ᠪᠣᠢ "]
-       [:span.text-sm.text-gray-500 "ᠶᠠᠭᠤ ᠪᠣᠢ ᠶᠠᠭᠤ"]]]]]
+      ;;  [:span.text-xl.text-purple-700 "ᠶᠠᠭᠤ ᠪᠣᠢ "]
+       [:span.text-xl.text-purple-700 "abc "]
+      ;;  [:span.text-sm.text-gray-500 "ᠶᠠᠭᠤ ᠪᠣᠢ ᠶᠠᠭᠤ"]
+       [:span.text-sm.text-gray-500 "abc"]
+       ]]]]
    [:div.flex-grow.md:pl-16
     [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
      [:div.p-4.container.my-auto.h-full.w-full.mode-lr
       [:h1 (:text @app-state)]
       [:h3 "Edit this and watch it change"]
-      ;; (editor/editor "quill-id" "content" nil)
+      (editor/editor "quill-id" "content" nil)
       ]
      
 
