@@ -5,6 +5,7 @@
    [app.state :as state]
    [goog.dom.classes :as gclass]
    [goog.object :as gobj]
+   [goog.style :as gstyle]
    ["/app/caret_pos" :as caret-pos]))
 
 (defn set-position [position]
@@ -26,19 +27,11 @@
                    (aset (.-style clipboard-node) "display" "none")
                    (.on qeditor "selection-change"
                         (fn [range oldrange source]
-                          (js/console.log "selection-changed ------ ")
-                          (set-position ((gobj/get caret-pos "offset") child-node))
-                          (js/console.log ((gobj/get caret-pos "offset") child-node))))
+                          (set-position ((gobj/get caret-pos "offset") child-node))))
                    (.on qeditor "text-change"
                         (fn [delta olddelta source]
-                          (js/console.log "text-changed -----------")
                           (let [range (.getSelection qeditor)]
-                            ;; (js/console.log (.getBoundingClientRect node))
-                            ;; (js/console.log range)
-                            ;; (js/console.log (.getBounds qeditor (.-index range) (.-length range)))
-                            (js/console.log "---")
-                            (set-position ((gobj/get caret-pos "offset") child-node))
-                            )))))}
+                            (set-position ((gobj/get caret-pos "offset") child-node)))))))}
   
   [state id content on-change-fn]
   [:div.quill-editor.h-full.min-w-min
@@ -59,4 +52,8 @@
 
   (.-height js/window.screen)
   (.-width js/window.screen)
+
+  (require '[goog.style :as gstyle] :reload)
+  gstyle
+
   )
