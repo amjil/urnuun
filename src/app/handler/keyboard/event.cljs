@@ -86,8 +86,33 @@
           (state/set-state! :ime/input "")
           (state/set-state! :ime/candidate-page 0))))))
 
+(defn on-num-key [k e]
+  (when (and (check-is-input (.-target e)) (state/sub :ime/active?))
+    (let [cands (state/sub :ime/candidate)
+          page (state/sub :ime/candidate-page)]
+      (when-not (empty? cands)
+        (.preventDefault e)
+        (let [cands (drop (* 9 page) cands)
+              cand (if (> (count cands) k) 
+                     (or (nth cands k) (first cands))
+                     (first cands))]
+          (insert-text e (:char_word cand))
+          (next-words cand)
+          (state/set-state! :ime/input "")
+          (state/set-state! :ime/candidate-page 0))))))
+
 (def keyboard 
-  {"a" #(on-key-down "a" %)
+  {
+   "1" #(on-num-key 0 %)
+   "2" #(on-num-key 1 %)
+   "3" #(on-num-key 2 %)
+   "4" #(on-num-key 3 %)
+   "5" #(on-num-key 4 %)
+   "6" #(on-num-key 5 %)
+   "7" #(on-num-key 6 %)
+   "8" #(on-num-key 7 %)
+   "9" #(on-num-key 8 %)
+   "a" #(on-key-down "a" %)
    "b" #(on-key-down "b" %)
    "c" #(on-key-down "c" %)
    "d" #(on-key-down "d" %)
