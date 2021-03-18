@@ -7,6 +7,10 @@
    [goog.object :as gobj]
    ["/app/caret_pos" :as caret-pos]))
 
+(defn set-position [position]
+  (state/set-state! :ime/candidate-left (str (+ (.-left position) 20) "px"))
+  (state/set-state! :ime/candidate-top (str (.-top position) "px")))
+
 (rum/defc editor <
   {:did-mount (fn [state]
                  (let [node (rum/dom-node state)
@@ -23,7 +27,8 @@
                    (.on qeditor "selection-change"
                         (fn [range oldrange source]
                           (js/console.log "selection-changed ------ ")
-                          (js/console.log ((gobj/get caret-pos "position") child-node))))
+                          (set-position ((gobj/get caret-pos "offset") child-node))
+                          (js/console.log ((gobj/get caret-pos "offset") child-node))))
                    (.on qeditor "text-change"
                         (fn [delta olddelta source]
                           (js/console.log "text-changed -----------")
@@ -32,7 +37,9 @@
                             ;; (js/console.log range)
                             ;; (js/console.log (.getBounds qeditor (.-index range) (.-length range)))
                             (js/console.log "---")
+                            (set-position ((gobj/get caret-pos "offset") child-node))
                             )))))}
+  
   [state id content on-change-fn]
   [:div.quill-editor.h-full.min-w-min
    {:id id
@@ -46,4 +53,6 @@
   (def edit (js/document.querySelector ".ql-editor"))
   edit
   ((gobj/get caret-pos "getOffset") edit)
-  ((gobj/get caret-pos "position") edit))
+  ((gobj/get caret-pos "position") edit)
+  ((gobj/get caret-pos "offset") edit)
+  )
