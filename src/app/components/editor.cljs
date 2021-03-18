@@ -25,6 +25,8 @@
                        clipboard-node (aget (.-children node) 1)]
                    (gclass/add child-node "mousetrap")
                    (aset (.-style clipboard-node) "display" "none")
+
+                   (state/set-state! :editor qeditor)
                    (.on qeditor "selection-change"
                         (fn [range oldrange source]
                           (set-position ((gobj/get caret-pos "offset") child-node))))
@@ -34,7 +36,7 @@
                             (set-position ((gobj/get caret-pos "offset") child-node)))))))}
   
   [state id content on-change-fn]
-  [:div.quill-editor.h-full.w-full
+  [:div.quill-editor.h-full.w-full.mgl.text-gray-700
    {:id id
     :dangerouslySetInnerHTML {:__html content}}])
 
@@ -57,4 +59,6 @@
   (.-width js/window.screen)
 
   (require '[goog.style :as gstyle] :reload)
-  gstyle)
+  gstyle
+  
+  (state/sub :editor))

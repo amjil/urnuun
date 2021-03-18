@@ -35,7 +35,7 @@
         top (state/sub :ime/candidate-top)
         style (if node (set-position left top node) {})]
     (js/console.log ">>>>>>>> " state)
-    (if-not (empty? input-str)
+    (if (or (not (empty? cands)) (not (empty? input-str)))
       [:div.z-10.border-purple-100.border.bg-gray-50.rounded-xl.shadow-xl.absolute.justify-between.flex.flex-col.divide-y.top-6.left-48
        {:style style}
        [:p.pl-3.text-gray-500.text-xs input-str]

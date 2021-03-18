@@ -16,16 +16,26 @@
 (defn is-contenteditable [el]
   (= "true" (.-contentEditable el)))
 
-(defn insert-text [e text]
-  nil)
+(defn next-words [cand]
+  (js/console.log "----- " (:bqr_biclg cand) (:id cand))
+  (api/next-words (:bqr_biclg cand) (:id cand) #(state/set-state! :ime/candidate %)))
+
+(defn insert-text [e value]
+  (if (is-contenteditable (.-target e))
+    (if-let [quill (state/sub :editor)]
+      (let [range (.getSelection quill)
+            value (if (or (zero? (.-index range))
+                          (some #{(.getText quill (- (.-index range) 1) 1)} [" " " " "\n" "\r"])
+                          (some #{(first value)} [" " " "]))
+                    value
+                    (str " " value))]
+        (.insertText quill (.-index range) (str "" value))))))
 
 (defn on-key-down [k e]
   (when (and (check-is-input (.-target e)) (state/sub :ime/active?))
     (.preventDefault e)
     (let [input-str (state/sub :ime/input)
           input-new (str input-str k)]
-      (js/console.log "key pressed " k)
-      (js/console.log "input-str = " input-new)
       (state/set-state! :ime/input input-new)
       (api/candidate input-new #(state/set-state! :ime/candidate %)))))
 
@@ -71,7 +81,10 @@
       (when-not (empty? cands)
         (.preventDefault e)
         (let [cand (first (drop (* 9 page) cands))]
-          nil)))))
+          (insert-text e (:char_word cand))
+          (next-words cand)
+          (state/set-state! :ime/input "")
+          (state/set-state! :ime/candidate-page 0))))))
 
 (def keyboard 
   {"a" #(on-key-down "a" %)
@@ -103,7 +116,8 @@
    "backspace" on-delete
    "=" on-plus
    "-" on-minus
-   "esc" on-esc})
+   "esc" on-esc
+   "space" on-space})
 
 (defn bind-keyboard!
   []

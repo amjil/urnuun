@@ -10,7 +10,9 @@
     :ime/candidate-page 0
     :ime/input ""
     :ime/candidate-left "0px"
-    :ime/candidate-top "0px"}))
+    :ime/candidate-top "0px"
+    
+    :editor nil}))
 
 (defn sub
   [ks]
