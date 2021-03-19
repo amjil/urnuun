@@ -17,8 +17,8 @@
                  (let [node (rum/dom-node state)
                        qeditor (quill. node
                                        (clj->js  {:modules     {:toolbar  false
-                                                                :keyboard {:bindings {:backspace {:key     8
-                                                                                                  :handler (fn [] nil)}}}
+                                                                ;; :keyboard {:bindings {:backspace {:key     8
+                                                                ;;                                   :handler (fn [] nil)}}}
                                                                 }
                                                   :theme       "snow"
                                             ;; :readOnly true
@@ -26,7 +26,8 @@
                                                   :placeholder "ᠠᠭᠤᠯᠭ᠎ᠠ ᠪᠠᠨ ᠨᠠᠢᠷᠠᠭᠤᠯᠤᠶ᠎ᠠ ..."}))
                        child-node (aget (.-children node) 0)
                        clipboard-node (aget (.-children node) 1)]
-                   (gclass/add child-node "mousetrap")
+                   (gclass/add child-node "mousetrap resize-x")
+                   (gclass/add child-node "h-full max-w-full overflow-x-scroll border border-purple-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent")
                    (aset (.-style clipboard-node) "display" "none")
 
                    (state/set-state! :editor qeditor)
@@ -63,5 +64,13 @@
 
   (require '[goog.style :as gstyle] :reload)
   gstyle
+
+  (state/sub :editor)
   
-  (state/sub :editor))
+  (def edit (js/document.querySelector ".aaa"))
+  edit 
+  (js/console.log edit)
+  (js/console.log (.text edit))
+  (js/console.log "aaaa")
+  (.-innerText edit)
+  )
