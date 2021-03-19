@@ -16,11 +16,14 @@
   {:did-mount (fn [state]
                  (let [node (rum/dom-node state)
                        qeditor (quill. node
-                                       #js {:modules #js {:toolbar false}
-                                            :theme "snow"
+                                       (clj->js  {:modules     {:toolbar  false
+                                                                :keyboard {:bindings {:backspace {:key     8
+                                                                                                  :handler (fn [] nil)}}}
+                                                                }
+                                                  :theme       "snow"
                                             ;; :readOnly true
                                             ;; :debug "info"
-                                            :placeholder "ᠠᠭᠤᠯᠭ᠎ᠠ ᠪᠠᠨ ᠨᠠᠢᠷᠠᠭᠤᠯᠤᠶ᠎ᠠ ..."})
+                                                  :placeholder "ᠠᠭᠤᠯᠭ᠎ᠠ ᠪᠠᠨ ᠨᠠᠢᠷᠠᠭᠤᠯᠤᠶ᠎ᠠ ..."}))
                        child-node (aget (.-children node) 0)
                        clipboard-node (aget (.-children node) 1)]
                    (gclass/add child-node "mousetrap")
@@ -36,7 +39,7 @@
                             (set-position ((gobj/get caret-pos "offset") child-node)))))))}
   
   [state id content on-change-fn]
-  [:div.quill-editor.h-full.w-full.mgl.text-gray-700
+  [:div.quill-editor.h-full.min-w-max.mgl.text-gray-700
    {:id id
     :dangerouslySetInnerHTML {:__html content}}])
 

@@ -17,7 +17,6 @@
   (= "true" (.-contentEditable el)))
 
 (defn next-words [cand]
-  (js/console.log "----- " (:bqr_biclg cand) (:id cand))
   (api/next-words (:bqr_biclg cand) (:id cand) #(state/set-state! :ime/candidate %)))
 
 (defn insert-text [e value]
@@ -41,11 +40,11 @@
 
 (defn on-delete [e]
   (when (and (check-is-input (.-target e)) (state/sub :ime/active?))
-    (when-not (empty? (state/sub :ime/input))
+    (when (not-empty (state/sub :ime/input))
       (.preventDefault e)
       (let [input-str (state/sub :ime/input)]
         (state/update-state! :ime/input #(subs % 0 (dec (count input-str))))
-        (if (< 1 (count input-str))
+        (when (< 1 (count input-str))
           (api/candidate (subs input-str 0 (dec (count input-str))) #(state/set-state! :ime/candidate %)))))))
 
 (defn on-plus [e]
@@ -101,6 +100,16 @@
           (state/set-state! :ime/input "")
           (state/set-state! :ime/candidate-page 0))))))
 
+(defn on-toggle-inputmethod [e]
+  (.preventDefault e)
+  (state/update-state! :ime/active? not)
+  (js/console.log ":ime/active? " (state/sub :ime/active?)))
+
+(defn on-return [e]
+  (.preventDefault e)
+  (insert-text e "\n")
+  (insert-text e " "))
+
 (def keyboard 
   {
    "1" #(on-num-key 0 %)
@@ -142,7 +151,9 @@
    "=" on-plus
    "-" on-minus
    "esc" on-esc
-   "space" on-space})
+   "space" on-space
+   "ctrl+`" on-toggle-inputmethod
+   })
 
 (defn bind-keyboard!
   []
@@ -183,5 +194,6 @@
                   )
   (def sel (.getSelection js/window))
   (def range (.getRangeAt sel 0))
-  ())
+  (def  quill (state/sub :editor))
+  (.-keyboard quill))
   

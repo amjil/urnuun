@@ -29,8 +29,8 @@
    [:div.flex-grow.md:pl-16
     [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
      [:div.p-4.container.my-auto.h-full.w-full.mode-lr
-      [:h1 (:text @app-state)]
-      [:h3 "Edit this and watch it change"]
+      ;; [:h1 (:text @app-state)]
+      ;; [:h3 "Edit this and watch it change"]
       (editor/editor "quill-id" "content" nil)
       ]
      

@@ -17,12 +17,10 @@
                (if (> top (- screen-height height))
                  {:top (str (- screen-height height) "px")}
                  {:top (str top "px")}))]
-    (js/console.log "screen-height" screen-height)
     style))
 
-(rum/defcs view < rum/reactive
+(rum/defc view < rum/reactive
   [state]
-  (rum/local nil ::node)
   (let [cands (state/sub :ime/candidate)
         cand-page (state/sub :ime/candidate-page)
         total-record (count cands)
@@ -34,7 +32,6 @@
         left (state/sub :ime/candidate-left)
         top (state/sub :ime/candidate-top)
         style (if node (set-position left top node) {})]
-    (js/console.log ">>>>>>>> " state)
     (if (or (not (empty? cands)) (not (empty? input-str)))
       [:div.z-10.border-purple-100.border.bg-gray-50.rounded-xl.shadow-xl.absolute.justify-between.flex.flex-col.divide-y.top-6.left-48
        {:style style}
