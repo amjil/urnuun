@@ -4,6 +4,8 @@
    [app.components.main :as main]
    [app.components.keyboard.candidate :as candidate]
    [app.components.editor :as editor]
+   [app.components.input :as input]
+   [app.state :as state]
    [app.handler.keyboard.event :as key-event]))
 
 (defonce app-state (atom {:text "Hello world!"}))
@@ -26,10 +28,27 @@
    [:div.flex-grow.md:pl-16
     [:div.bg-gradient-to-r.from-light-blue-50.to-light-blue-100
      [:div.p-4.container.my-auto.h-full.w-full.mode-lr
-      [:div.aaa {:contenteditable "true"}]
+    ;;  [:div.p-4.container.my-auto.h-full.w-full
+      (input/input "idd" "ᠨᠡᠷ᠎ᠡ:" "bbbb" {})
+      (input/textarea "desc" "ᠲᠠᠨᠢᠯᠴᠠᠭᠤᠯᠭ᠎ᠠ:" "bbbb" {})
+      (input/toggle "ᠵᠥᠪ:" (state/sub :test) #(state/update-state! :test not))
+      [:.grid.grid-cols-3.gap-4
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 1]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 2]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 3]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 4]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 5]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 6]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 7]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 8]
+       [:div.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 9]]
+      [:.grid.grid-cols-9.gap-4.pl-4
+       [:.col-span-2.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 1]
+       [:.col-span-7.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 2]]
       ;; [:h1 (:text @app-state)]
       ;; [:h3 "Edit this and watch it change"]
-      (editor/editor "quill-id" "content" nil)]
+      ;; (editor/editor "quill-id" "content" nil)
+      ]
      
 
      ; (main/timer)

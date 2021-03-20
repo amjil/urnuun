@@ -6,3 +6,17 @@
   font-family: 'Mongolian White';
   src: url(/fonts/mnglwhiteotf.ttf);
 }
+
+[contenteditable="true"].single-line {
+  white-space: nowrap;
+  /* overflow: hidden; */
+  overflow-y: scroll;
+} 
+[contenteditable="true"].single-line br {
+  display:none;
+
+}
+[contenteditable="true"].single-line * {
+  display:inline;
+  white-space:nowrap;
+}

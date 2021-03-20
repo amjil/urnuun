@@ -12,7 +12,8 @@
     :ime/candidate-left "0px"
     :ime/candidate-top "0px"
     
-    :editor nil}))
+    :editor nil
+    :test true}))
 
 (defn sub
   [ks]
