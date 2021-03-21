@@ -20,9 +20,21 @@
       [:path {:stroke-linecap "round" :stroke-linejoin "round" :stroke-width "2" :d "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"}]]]
 
     [:.bg-white.ml-10.rounded-lg.shadow.p-4.absolute.top-0.left-0.h-80
-    ;;  [:.flex.justify-between.items-center.mr-2
-    ;;   [:div]]]
-    ;;  [:.divide-x.divide-purple-600
+     [:.flex.justify-between.items-center.mr-2
+      [:div
+       [:span.mt-1.text-lg.text-purple-600.font-normal
+        {:style {:text-orientation "upright"}} "2021"]
+       [:span.text-lg.font-bold.text-purple-800 {:style {:text-orientation "upright"}} " 3"]
+       [:span.text-lg.font-bold.text-purple-800 {:style {:text-orientation "upright"}} " 3"]]
+      [:div
+       [:button.transition.ease-in-out.duration-100.inline-flex.cursor-pointer.hover:bg-gray-200.p-1.rounded-full
+        [:svg.h-6.w-6.text-gray-500.inline-flex.transform.rotate-90
+         {:fill "none" :viewBox "0 0 24 24" :stroke "currentColor"}
+         [:path {:stroke-linecap "round" :stroke-linejoin "round" :stroke-width "2" :d "M15 19l-7-7 7-7"}]]]
+       [:button.transition.ease-in-out.duration-100.inline-flex.cursor-pointer.hover:bg-gray-200.p-1.rounded-full
+        [:svg.h-6.w-6.text-gray-500.inline-flex.transform.rotate-90
+         {:fill "none" :viewBox "0 0 24 24" :stroke "currentColor"}
+         [:path {:stroke-linecap "round" :stroke-linejoin "round" :stroke-width "2" :d "M9 5l7 7-7 7"}]]]]]
      [:.divide-x.divide-purple-50
       [:.flex.flex-wrap.-my-3.mr-3
        (for [i weeks]
