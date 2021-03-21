@@ -45,6 +45,10 @@
       [:.grid.grid-cols-9.gap-4.pl-4
        [:.col-span-2.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 1]
        [:.col-span-7.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 2]]
+      (input/date-picker)
+      [:.grid.grid-cols-9.gap-4.pl-4
+       [:.col-span-2.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 1]
+       [:.col-span-7.bg-purple-500.w-12.rounded-md.flex.items-center.justify-center.text-white.text-2xl.font-extrabold 2]]
       ;; [:h1 (:text @app-state)]
       ;; [:h3 "Edit this and watch it change"]
       ;; (editor/editor "quill-id" "content" nil)
