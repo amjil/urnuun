@@ -24,7 +24,9 @@
       [:div
        [:span.mt-1.text-lg.text-purple-600.font-normal
         {:style {:text-orientation "upright"}} "2021"]
+       [:span.text-lg.font-bold.text-purple-800 " \\"]
        [:span.text-lg.font-bold.text-purple-800 {:style {:text-orientation "upright"}} " 3"]
+       [:span.text-lg.font-bold.text-purple-800 " \\"]
        [:span.text-lg.font-bold.text-purple-800 {:style {:text-orientation "upright"}} " 3"]]
       [:div
        [:button.transition.ease-in-out.duration-100.inline-flex.cursor-pointer.hover:bg-gray-200.p-1.rounded-full
